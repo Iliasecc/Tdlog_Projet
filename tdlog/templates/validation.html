@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>BurnoutGuard</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="static/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="static/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="static/css/style.css" rel="stylesheet">
+    <style>
+        /* Ajout de styles pour améliorer l'apparence des images */
+        .activity-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+    
+        /* Style pour les commentaires */
+        .comment-input {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+    
+        /* Centrer les éléments des cellules */
+        .table td,
+        .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+    
+        /* Ajouter des ombres pour un effet plus moderne */
+        .table {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Style pour le bouton */
+        #saveButton {
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+    </style>
+    <style>
+        .activity-image {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid position-relative bg-white d-flex p-0">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="{{ url_for('validation') }}" class="navbar-brand mx-4 mb-2">
+                    <h3 class="text-primary">
+                        <img src="static/img/tdloglogo.png" alt="BurnoutGuard" class="logo-icon me-2">
+                        BurnoutGuard
+                    </h3>
+                </a>
+                
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="static/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0"></h6>
+                        <span>RH</span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="{{ url_for('rh') }}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="{{ url_for('validation') }}" class="nav-item nav-link active"><i class="fa fa-tasks me-2"></i>Activités à valider </a>
+                    <a href="{{ url_for('signin') }}" class="nav-item nav-link"><i class="fa fa-home me-2"></i>Déconnexion</a>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="{{ url_for('employé') }}" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="static/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">RH</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="{{ url_for('profiler') }}" class="dropdown-item">My Profile</a>
+                            <a href="{{ url_for('signin') }}" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+       
+            <div class="container mt-5">
+                <h2>Liste des Activités</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Type d'activités</th>
+                            <th>Activité</th>
+                            <th>Image</th>
+                            <th>Validée</th>
+                            <th>Commentaire</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activitiesList">
+                        <!-- Les lignes seront générées par JavaScript -->
+                    </tbody>
+                </table>
+            
+                <button class="btn btn-primary" id="saveButton">Enregistrer</button>
+            </div>
+           
+            
+       
+
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="#">BurnoutGuard</a>, All Right Reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/main.js"></script>
+    <script>
+        // Chargement des activités depuis localStorage ou la base de données par défaut
+        function chargerActivites1() {
+            const activitesStockees = localStorage.getItem("activitesJSON1");
+            if (activitesStockees) {
+                return JSON.parse(activitesStockees); // Retourner les données stockées si elles existent
+            } else {
+                return {
+                    "activites": {
+                        "individuelles": [
+                            { "id": 1, "titre": "Coaching Personnel", "description": "Réussir vos objectifs personnels avec un coach.", "points": 200, "statut": "non soumis", "type": "individuelle", "image_url": "static/img/coaching.jpg" },
+                            { "id": 2, "titre": "Yoga", "description": "Apprenez à vous détendre avec des sessions de yoga.", "points": 200, "statut": "soumis pour validation", "type": "individuelle", "image_url": "static/img/yoga.jpg" },
+                            { "id": 3, "titre": "Gym", "description": "Participez à des sessions sportives pour améliorer votre forme.", "points": 200, "statut": "non soumis", "type": "individuelle", "image_url": "static/img/gym.jpg" }
+                        ],
+                        "collectives": [
+                            { "id": 1, "titre": "Match de Football", "description": "Un match de football entre collègues.", "date": "20 Décembre 2024, 18h00", "participants_max": 20, "statut": "Participation confirmée", "type": "collective", "image_url": "static/img/foot.jpg" },
+                            { "id": 2, "titre": "Dîner Collectif", "description": "Un dîner convivial pour tous les participants.", "date": "25 Décembre 2024, 20h00", "participants_max": 50, "statut": "Participation non confirmée", "type": "collective", "image_url": "static/img/diner.jpg" },
+                            { "id": 3, "titre": "Randonnée en forêt", "description": "Une randonnée dans la forêt de Bouskoura pour tous les participants.", "date": "28 Décembre 2024, 10h00", "participants_max": 15, "statut": "Participation non confirmée", "type": "collective", "image_url": "static/img/rando.jpg" }
+                        ]
+                    }
+                };
+            }
+        }
+    
+        // Fonction pour afficher les activités dans le tableau
+        function afficherActivites() {
+            const activites = chargerActivites1();
+            const listeActivites = [...activites.activites.individuelles, ...activites.activites.collectives]; // Combiner les activités individuelles et collectives
+            const tbody = document.getElementById("activitiesList");
+    
+            listeActivites.forEach((activite, index) => {
+                const row = document.createElement("tr");
+    
+                // Vérification du chemin d'image
+                const imageUrl = activite.image_url || 'static/img/default.jpg'; // Image par défaut si non définie
+    
+                row.innerHTML = `
+                    <td>${activite.type.charAt(0).toUpperCase() + activite.type.slice(1)}</td>
+                    <td>${activite.titre}</td>
+                    <td><img src="${imageUrl}" alt="Image Activité" class="activity-image"></td>
+                    <td><input type="checkbox" class="activity-checkbox" data-index="${index}"></td>
+                    <td><input type="text" class="comment-input" placeholder="Commentaire..." data-index="${index}"></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+    
+        // Fonction pour sauvegarder l'état des cases à cocher et des commentaires
+        function saveActivityData() {
+            const checkboxes = document.querySelectorAll('.activity-checkbox');
+            const comments = document.querySelectorAll('.comment-input');
+    
+            const data = [];
+            checkboxes.forEach((checkbox, index) => {
+                data.push({
+                    checked: checkbox.checked,
+                    comment: comments[index].value
+                });
+            });
+    
+            // Sauvegarder les données dans localStorage
+            localStorage.setItem('activityData', JSON.stringify(data));
+        }
+    
+        // Fonction pour charger les données sauvegardées depuis localStorage
+        function loadActivityData() {
+            const savedData = JSON.parse(localStorage.getItem('activityData'));
+            if (savedData) {
+                const checkboxes = document.querySelectorAll('.activity-checkbox');
+                const comments = document.querySelectorAll('.comment-input');
+    
+                savedData.forEach((data, index) => {
+                    checkboxes[index].checked = data.checked;
+                    comments[index].value = data.comment;
+                });
+            }
+        }
+    
+        // Charger les activités lorsque la page est chargée
+        window.onload = function() {
+            afficherActivites();
+            loadActivityData();
+        };
+    
+        // Enregistrer les données lorsque le bouton est cliqué
+        document.getElementById('saveButton').addEventListener('click', saveActivityData);
+    </script>
+    
+    
+       
+    
+    <script>
+        window.embeddedChatbotConfig = {
+        chatbotId: "eG2cBSqSGeftB1fqA4P2r",
+        domain: "www.chatbase.co"
+        }
+        </script>
+        <script
+        src="https://www.chatbase.co/embed.min.js"
+        chatbotId="eG2cBSqSGeftB1fqA4P2r"
+        domain="www.chatbase.co"
+        defer>
+    </script>
+    
+</body>
+
+</html>
+
