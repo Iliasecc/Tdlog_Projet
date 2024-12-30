@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>BurnoutGuard</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="static/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="static/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="static/css/style.css" rel="stylesheet">
+
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+    
+        .container {
+            max-width: 1200px;
+        }
+    
+        .text-primary {
+            color: #4c93af !important;
+        }
+    
+        .text-muted {
+            color: #6c757d;
+        }
+    
+        .btn-success {
+            background-color:#4c93af;
+            border-color: #4c93af;
+        }
+    
+        .btn-success:hover {
+            background-color: #4c93af;
+            border-color: #4c93af;
+        }
+    
+        .table {
+            margin-top: 20px;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+    
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f8f9fa;
+        }
+    
+        .table-bordered {
+            border: 1px solid #ddd;
+        }
+    
+        .thead-light th {
+            background-color: #f7f7f7;
+            color: #333;
+        }
+    
+        .shadow-sm {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+    
+        .progress {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+        }
+    
+        .progress-bar {
+            border-radius: 10px;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        .form-control {
+            border-radius: 5px;
+        }
+    
+        .card {
+            border-radius: 8px;
+        }
+    
+        .col-lg-12 {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+    
+        /* Margin adjustments for spacing */
+        .mb-4 {
+            margin-bottom: 30px !important;
+        }
+    
+        .mt-4 {
+            margin-top: 30px !important;
+        }
+    </style>
+    <style>
+    .trophy-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: -40px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .trophy-points {
+        font-size: 1.1rem;
+        margin-right: 10px;
+    }
+
+    .trophy-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #4c93af;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .rewards-drawer {
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        width: 300px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 15px;
+        display: none;
+        z-index: 100;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+        
+    }
+
+    
+ 
+    .reward-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 1rem;
+    }
+
+    .reward-item i {
+        font-size: 1.2rem;
+        margin-right: 10px;
+    }
+
+    .reward-item.completed i {
+        color: green;
+    }
+
+    .reward-item.pending i {
+        color: #ccc;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        line-height: 25px;
+        text-align: center;
+        cursor: pointer;
+        z-index: 101;
+    }
+    
+    .close-button:hover {
+        background: red;
+    }
+    
+</style>
+<style>
+    .card-header {
+        border-bottom: 2px solid #e0e0e0;
+    }
+    .table-hover tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+    .btn {
+        font-weight: 500;
+    }
+    .form-label {
+        font-weight: bold;
+    }
+    .text-muted {
+        font-size: 0.9rem;
+    }
+    .logo-v {
+        display: inline-block;
+        margin-left: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        color: #17a2b8;
+    }
+</style>
+    
+
+</head>
+
+<body>
+    <div class="container-fluid position-relative bg-white d-flex p-0">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="{{ url_for('activite') }}" class="navbar-brand mx-4 mb-2">
+                    <h3 class="text-primary">
+                        <img src="static/img/tdloglogo.png" alt="BurnoutGuard" class="logo-icon me-2">
+                        BurnoutGuard
+                    </h3>
+                </a>
+                
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="static/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0"></h6>
+                        <span>Employé</span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="{{ url_for('employé') }}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="{{ url_for('psyvirtuel') }}" class="nav-item nav-link"><i class="fa fa-user-md me-2"></i>Psy Virtuel</a>
+                    <a href="{{ url_for('activite') }}" class="nav-item nav-link active"><i class="fa fa-tasks me-2"></i>Activités</a>
+                    <a href="{{ url_for('signin') }}" class="nav-item nav-link"><i class="fa fa-home me-2"></i>Déconnexion</a>
+                    
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="{{ url_for('employé') }}" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="static/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">Employé</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="{{ url_for('profile') }}" class="dropdown-item">My Profile</a>
+                            <a href="{{ url_for('signin') }}" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+            
+            <div class="container">
+                <!-- Trophée et Points Section -->
+                <div class="trophy-container" id="trophy-container">
+                    <span class="trophy-points" id=""> <i class="bi bi-star-fill text-warning"></i> 1200 points</span>
+                    <div id="" style="width: 30px; height: 30px; border-radius: 50%; overflow: hidden; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                        <img src="static/img/award.jpg" alt="Trophée" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <!-- Logo V en forme de flèche pour ouvrir le tiroir -->
+                    <div class="logo-v" id="trophy-icon" style="cursor: pointer; font-size: 20px; color: #17a2b8; margin-left: 10px;">
+                        <i class="bi bi-chevron-down"></i> <!-- Utilisation d'une icône de flèche -->
+                    </div>
+                </div>
+                <!-- Drawer des Récompenses -->
+                <div class="rewards-drawer" id="rewards-drawer">
+                    <button class="close-button" id="close-button">&times;</button>
+                    <h5 class="text-primary mb-3">Vos Récompenses</h5>
+                    <div class="reward-item completed">
+                        <i class="bi bi-check-square-fill"></i> 500 points - Carte-cadeau 🎁
+                    </div>
+                    <div class="reward-item completed">
+                        <i class="bi bi-check-square-fill"></i> 1000 points - 50€ bonus 💶
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 2000 points - 100€ bonus 💵
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 3000 points - 150€ bonus 💶
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 4000 points - 1 journée de congé 🌴
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 5000 points - 200€ bonus 💳
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 6000 points - Carte-cadeau de 200€ 🛍️
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 7000 points - Accès à un atelier premium 💼
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 8000 points - 2 journées de congé 🌞
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 9000 points - Réduction sur abonnement fitness 🏋️
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 10000 points - Voyage de week-end 🏖️
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 12000 points - 1 journée de congé supplémentaire avec prime 🌟
+                    </div>
+                    <div class="reward-item pending">
+                        <i class="bi bi-square"></i> 15000 points - Cadeaux exclusifs (Tablette) 🎉
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    <!-- Section Trophée et Points -->
+                    <!-- Vous pouvez ajouter une section ici pour afficher les trophées et les points -->
+            
+                    <!-- Section Activités Individuelles -->
+                    <div class="col-lg-12 mb-5">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0"><i class="bi bi-person-circle"></i> Activités Individuelles</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted">Voici une liste d'activités individuelles proposées par votre entreprise ce mois-ci. Cochez les activités que vous avez complétées et ajoutez une image pour valider chaque activité.</p>
+                                <p class="text-info"><i class="bi bi-info-circle"></i> Les activités individuelles complétées vous rapportent <strong>200 points</strong>.
+                                <table class="table table-hover">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Description</th>
+                                            <th>Points</th>
+                                            <th>Statut</th>
+                                            <th>Image</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="activites-individuelles">
+                                        <!-- Les activités individuelles seront générées ici par JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Section Activités Collectives -->
+                    <div class="col-lg-12 mb-5">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0"><i class="bi bi-people"></i> Activités Collectives</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted">Rejoignez des activités proposées par vos collègues ou proposez-en de nouvelles.</p>
+                                <p class="text-info"><i class="bi bi-info-circle"></i> Les activités collectives complétées vous rapportent <strong>200 points</strong>. Si vous proposez et validez votre propre activité, vous gagnez <strong>400 points</strong> !</p>
+            
+                                <table class="table table-hover">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Description</th>
+                                            <th>Date</th>
+                                            <th>Participants Max</th>
+                                            <th>Statut</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="activites-collectives">
+                                        <!-- Les activités collectives seront générées ici par JS -->
+                                    </tbody>
+                                  
+                                </table>
+                                <div class="form-group">
+                                    <label for="justificatif-collective" class="form-label">Ajouter un justificatif</label>
+                                    <div id="justificatif-container">
+                                        <!-- Première ligne pour nom et image -->
+                                        <div class="d-flex align-items-center mb-3 justify-content-between">
+                                            <input type="text" class="form-control me-3" id="nom-activite-justificatif" placeholder="Nom de l'activité" required>
+                                            <input type="file" class="form-control me-3" id="justificatif-collective" accept="image/*" required>
+                                            <button type="button" class="btn btn-primary btn-valider"></i> Valider</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Zone pour afficher les activités validées -->
+                                <div class="form-group mt-4">
+                                    <h5>Activités Justifiées</h5>
+                                    <div id="justificatifs-valides" class="border p-3 rounded bg-light"></div>
+                                </div>
+                                
+                                
+            
+                                <h5 class="text-primary mt-4"><i class="bi bi-plus-circle"></i> Proposer une activité collective</h5>
+                                <form id="form-activite-collective" class="border p-4 rounded bg-light shadow-sm">
+                                    <div class="form-group">
+                                        <label for="titre-collective" class="form-label">Titre de l'activité</label>
+                                        <input type="text" class="form-control" id="titre-collective" placeholder="Entrez le titre" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description-collective" class="form-label">Description</label>
+                                        <input type="text" class="form-control" id="description-collective" placeholder="Entrez la description" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date-collective" class="form-label">Date et Heure</label>
+                                        <input type="datetime-local" class="form-control" id="date-collective" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="participants-collective" class="form-label">Nombre de participants max</label>
+                                        <input type="number" class="form-control" id="participants-collective" placeholder="Entrez le nombre maximum" required>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-success btn-block"><i class="bi bi-check-circle"></i> Proposer l'activité</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+      
+            
+            
+            
+       
+
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="#">BurnoutGuard</a>, All Right Reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/main.js"></script>
+    <script>
+        const trophyIcon = document.getElementById("trophy-icon");
+        const rewardsDrawer = document.getElementById("rewards-drawer");
+        const closeButton = document.getElementById("close-button");
+        
+        trophyIcon.addEventListener("click", () => {
+            // Vérifie si le tiroir est visible ou non
+            if (rewardsDrawer.style.display === "block") {
+                // Masquer le tiroir
+                rewardsDrawer.style.display = "none";
+            } else {
+                // Afficher le tiroir
+                rewardsDrawer.style.display = "block";
+            }
+        });
+
+        closeButton.addEventListener("click", () => {
+            rewardsDrawer.style.display = "none";
+        });
+        
+    </script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fonction pour récupérer les activités depuis le localStorage
+        function chargerActivites() {
+            const activitesStockees = localStorage.getItem("activitesJSON");
+            if (activitesStockees) {
+                return JSON.parse(activitesStockees); // Retourner les données stockées si elles existent
+            } else {
+                return {
+                    "activites": {
+                        "individuelles": [
+                            {
+                                "id": 1,
+                                "titre": "Coaching Personnel",
+                                "description": "Réussir vos objectifs personnels avec un coach.",
+                                "points": 200,
+                                "statut": "non soumis",
+                                "type": "individuelle",
+                                "image_url": null
+                            },
+                            {
+                                "id": 2,
+                                "titre": "Yoga",
+                                "description": "Apprenez à vous détendre avec des sessions de yoga.",
+                                "points": 200,
+                                "statut": "soumis pour validation",
+                                "type": "individuelle",
+                                "image_url": "static/img/yoga.jpg"
+                            },
+                            {
+                                "id": 3,
+                                "titre": "Gym",
+                                "description": "Participez à des sessions sportives pour améliorer votre forme.",
+                                "points": 200,
+                                "statut": "non soumis",
+                                "type": "individuelle",
+                                "image_url": null
+                            },
+                            {
+                                "id": 4,
+                                "titre": "Méditation",
+                                "description": "Séances de méditation guidée pour réduire le stress.",
+                                "points": 150,
+                                "statut": "non soumis",
+                                "type": "individuelle",
+                                "image_url": null
+                            },
+                            {
+                                "id": 5,
+                                "titre": "Lecture de Développement Personnel",
+                                "description": "Lisez un livre recommandé sur le développement personnel.",
+                                "points": 100,
+                                "statut": "non soumis",
+                                "type": "individuelle",
+                                "image_url": null
+                            },
+                            {
+                                "id": 6,
+                                "titre": "Course à Pied",
+                                "description": "Faites une course à pied de 5 km dans votre quartier.",
+                                "points": 150,
+                                "statut": "non soumis",
+                                "type": "individuelle",
+                                "image_url": null
+                            },
+                            {
+                                "id": 7,
+                                "titre": "Nutrition et Santé",
+                                "description": "Suivez un programme nutritionnel personnalisé.",
+                                "points": 250,
+                                "statut": "non soumis",
+                                "type": "individuelle",
+                                "image_url": null
+                            },
+                            {
+                                "id": 8,
+                                "titre": "Apprentissage de Langue Étrangère",
+                                "description": "Apprenez une nouvelle langue à travers des applications ou des cours.",
+                                "points": 300,
+                                "statut": "non soumis",
+                                "type": "individuelle",
+                                "image_url": null
+                            },
+                            {
+                                "id": 9,
+                                "titre": "Création Artistique",
+                                "description": "Explorez votre créativité à travers la peinture ou le dessin.",
+                                "points": 200,
+                                "statut": "non soumis",
+                                "type": "individuelle",
+                                "image_url": null
+                            },
+                            {
+                                "id": 10,
+                                "titre": "Écriture de Journal",
+                                "description": "Tenez un journal quotidien pour améliorer votre bien-être mental.",
+                                "points": 100,
+                                "statut": "non soumis",
+                                "type": "individuelle",
+                                "image_url": null
+                            }
+                        ],
+                        "collectives": [
+                            {
+                                "id": 1,
+                                "titre": "Match de Football",
+                                "description": "Un match de football entre collègues.",
+                                "date": "20 Décembre 2024, 18h00",
+                                "participants_max": 20,
+                                "statut": "Participation confirmée",
+                                "type": "collective"
+                            },
+                            {
+                                "id": 2,
+                                "titre": "Dîner Collectif",
+                                "description": "Un dîner convivial pour tous les participants.",
+                                "date": "25 Décembre 2024, 20h00",
+                                "participants_max": 50,
+                                "statut": "Participation non confirmée",
+                                "type": "collective"
+                            },
+                            {
+                                "id": 3,
+                                "titre": "Randonnée en forêt",
+                                "description": "Une randonnée dans la forêt de Bouskoura pour tous les participants.",
+                                "date": "28 Décembre 2024, 10h00",
+                                "participants_max": 15,
+                                "statut": "Participation non confirmée",
+                                "type": "collective"
+                            },
+                            {
+                                "id": 4,
+                                "titre": "Concours de Cuisine",
+                                "description": "Un concours où chaque participant présente un plat de sa région.",
+                                "date": "30 Décembre 2024, 18h00",
+                                "participants_max": 10,
+                                "statut": "Participation non confirmée",
+                                "type": "collective"
+                            },
+                            {
+                                "id": 5,
+                                "titre": "Séance de Yoga Collectif",
+                                "description": "Une session de yoga en groupe dans un parc ou à l'intérieur.",
+                                "date": "15 Janvier 2025, 08h00",
+                                "participants_max": 30,
+                                "statut": "Participation non confirmée",
+                                "type": "collective"
+                            },
+                            {
+                                "id": 6,
+                                "titre": "Atelier de Peinture",
+                                "description": "Un atelier de peinture pour libérer la créativité des participants.",
+                                "date": "5 Février 2025, 14h00",
+                                "participants_max": 12,
+                                "statut": "Participation non confirmée",
+                                "type": "collective"
+                            }
+                        ]
+                    }
+                };
+            }
+        }
+        
+        // Fonction pour sauvegarder les activités dans le localStorage
+        function sauvegarderActivites(activites) {
+            localStorage.setItem("activitesJSON", JSON.stringify(activites));
+        }
+    
+        // Charger les activités au démarrage
+        let activitesJSON = chargerActivites();
+    
+        // Fonction pour afficher les activités individuelles
+        // Fonction pour afficher les activités individuelles
+function afficherActivitesIndividuelles() {
+    const tableBody = document.getElementById("activites-individuelles");
+    tableBody.innerHTML = "";  // Clear current table
+    activitesJSON.activites.individuelles.forEach(activity => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${activity.titre}</td>
+            <td>${activity.description}</td>
+            <td>${activity.points}</td>
+            <td>${activity.statut}</td>
+            <td>
+                ${activity.image_url ? `<img src="${activity.image_url}" alt="Image" width="100">` : `<input type="file" accept="image/*" onchange="uploadImage(${activity.id}, this)">`}
+            </td>
+            <td><button class="btn btn-success" onclick="validerActivite(${activity.id})">Valider</button></td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+        // Fonction pour télécharger l'image
+        function uploadImage(activityId, inputElement) {
+            const activity = activitesJSON.activites.individuelles.find(act => act.id === activityId);
+            if (activity) {
+                const file = inputElement.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imageUrl = e.target.result;
+                        activity.image_url = imageUrl;  // Mettre à jour l'URL de l'image dans l'objet activité
+                        sauvegarderActivites(activitesJSON);  // Sauvegarder les changements dans localStorage
+                        
+                        // Mettre à jour l'affichage de l'image dans la table
+                        afficherActivitesIndividuelles();  // Re-render the list
+                    };
+                    reader.readAsDataURL(file);  // Lire l'image comme URL de données
+                }
+            }
+        }
+
+        // Fonction pour sauvegarder les activités dans localStorage
+        function sauvegarderActivites(data) {
+            localStorage.setItem("activites", JSON.stringify(data));
+        }
+    
+        // Fonction pour afficher les activités collectives
+        function afficherActivitesCollectives() {
+            const tableBody = document.getElementById("activites-collectives");
+            tableBody.innerHTML = "";  // Clear current table
+            activitesJSON.activites.collectives.forEach(activity => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${activity.titre}</td>
+                    <td>${activity.description}</td>
+                    <td>${activity.date}</td>
+                    <td>${activity.participants_max}</td>
+                    <td>${activity.statut}</td>
+                    <td><button class="btn btn-primary" onclick="confirmerParticipation(${activity.id})">Confirmer</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    
+        // Fonction pour valider l'activité
+        function validerActivite(id) {
+            const activity = activitesJSON.activites.individuelles.find(act => act.id === id);
+            if (activity && activity.statut === "non soumis") {
+                activity.statut = "soumis pour validation";
+                sauvegarderActivites(activitesJSON);  // Sauvegarder les changements dans localStorage
+                afficherActivitesIndividuelles();  // Re-render the list
+            }
+        }
+    
+        // Fonction pour confirmer la participation à une activité collective
+        function confirmerParticipation(id) {
+            const activity = activitesJSON.activites.collectives.find(act => act.id === id);
+            if (activity && activity.statut === "Participation non confirmée") {
+                activity.statut = "Participation confirmée";
+                sauvegarderActivites(activitesJSON);  // Sauvegarder les changements dans localStorage
+                afficherActivitesCollectives();  // Re-render the list
+            }
+        }
+    
+        // Fonction pour proposer une activité collective
+        document.getElementById("form-activite-collective").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const titre = document.getElementById("titre-collective").value;
+            const description = document.getElementById("description-collective").value;
+            const date = document.getElementById("date-collective").value;
+            const participants = document.getElementById("participants-collective").value;
+    
+            const newActivity = {
+                id: activitesJSON.activites.collectives.length + 1,
+                titre: titre,
+                description: description,
+                date: date,
+                participants_max: parseInt(participants),
+                statut: "Activité proposée", // Correction orthographique
+                type: "collective"
+            };
+    
+            activitesJSON.activites.collectives.push(newActivity);
+            sauvegarderActivites(activitesJSON);  // Sauvegarder les changements dans localStorage
+            afficherActivitesCollectives();
+        });
+    
+        // Initial render of activities
+        afficherActivitesIndividuelles();
+        afficherActivitesCollectives();
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const container = document.getElementById("justificatif-container");
+            const justificatifsValides = document.getElementById("justificatifs-valides");
+    
+            // Charger les justificatifs sauvegardés
+            const chargerJustificatifs = () => {
+                const justificatifs = JSON.parse(localStorage.getItem("justificatifs") || "[]");
+                justificatifs.forEach(({ nom, image }) => afficherJustificatif(nom, image, false));
+            };
+    
+            // Sauvegarder les justificatifs dans LocalStorage
+            const sauvegarderJustificatifLocal = (nom, image) => {
+                const justificatifs = JSON.parse(localStorage.getItem("justificatifs") || "[]");
+                justificatifs.push({ nom, image });
+                localStorage.setItem("justificatifs", JSON.stringify(justificatifs));
+            };
+ 
+    
+            // Sauvegarder le justificatif
+            const sauvegarderJustificatif = (ligne) => {
+                const nomActivite = ligne.querySelector("input[type='text']").value;
+                const justificatif = ligne.querySelector("input[type='file']").files[0];
+    
+                if (!nomActivite || !justificatif) {
+                    alert("Veuillez remplir tous les champs.");
+                    return;
+                }
+    
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imageBase64 = e.target.result;
+                    afficherJustificatif(nomActivite, imageBase64, true);
+                };
+                reader.readAsDataURL(justificatif);
+            };
+    
+            // Afficher le justificatif
+            const afficherJustificatif = (nom, imageBase64, sauvegarder = true) => {
+                const justificatifDiv = document.createElement("div");
+                justificatifDiv.classList.add("d-flex", "align-items-center", "mb-2");
+    
+                justificatifDiv.innerHTML = `
+                    <img src="${imageBase64}" alt="Justificatif" class="me-3" style="width: 50px; height: 50px; object-fit: cover; border: 1px solid #ddd;">
+                    <span>${nom}</span>
+                `;
+    
+                justificatifsValides.appendChild(justificatifDiv);
+    
+                if (sauvegarder) {
+                    sauvegarderJustificatifLocal(nom, imageBase64);
+                    ajouterNouvelleLigne();
+                }
+            };
+    
+            // Charger les justificatifs lors du chargement de la page
+            chargerJustificatifs();
+    
+            // Gestionnaire pour la première ligne
+            container.querySelector(".btn-valider").addEventListener("click", function () {
+                sauvegarderJustificatif(container.firstElementChild);
+            });
+        });
+    </script>
+    
+    
+    
+    
+</body>
+
+</html>
+
