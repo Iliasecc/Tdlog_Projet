@@ -1,5 +1,25 @@
 # Burnout Guard
 
+## Guide d'Installation et d'Exécution
+
+Pour exécuter et tester l'application en local, suivez les étapes ci-dessous :
+
+### **Prérequis**
+voir le fichier requirements.txt
+
+### **Étapes**
+1. **Cloner le projet**  
+   Téléchargez ou clonez le projet dans un répertoire local :
+   ```bash
+   git clone <url_du_dépôt>
+   cd Tdlog_Projet
+   
+ 2.**pip install -r requirements.txt**
+
+ 3.**Ajouter dans le fichier app.py la clé openai fourni et puis exécutez le fichier app.py qui se trouve dans le folder tdlog_project**
+ 
+ 4.**Naviguer dans l'application en vous imaginant un Employé et puis un RH**
+ ---------------
 **Plateforme de bien-être des employés** :
 
 Bienvenue sur **Burnout Guard**, une plateforme réactive dédiée au bien-être des employés. Notre mission est d'aider les entreprises à prévenir le burnout et à améliorer la qualité de vie au travail. La plateforme utilise des données calculées chaque fin de mois pour déterminer le **burnout rate** des employés et propose des solutions personnalisées en fonction de ce taux. Et en plus elle propose des solutions préventives au burnout comme un psy virtuel et des activités pour le bien-être
@@ -62,26 +82,6 @@ En dehors du dossier `tdlog`, les fichiers suivants sont présents :
 
 ---
 
-## Guide d'Installation et d'Exécution
-
-Pour exécuter et tester l'application en local, suivez les étapes ci-dessous :
-
-### **Prérequis**
-voir le fichier requirements.txt
-
-### **Étapes**
-1. **Cloner le projet**  
-   Téléchargez ou clonez le projet dans un répertoire local :
-   ```bash
-   git clone <url_du_dépôt>
-   cd tdlog
-   
- 2.**pip install -r requirements.txt**
-
- 3.**Exécutez le fichier app.py**
- 
- 4.**Naviguer dans l'application en vous imaginant un Employé et puis un RH**
- 
 ## Contribution :
 
 Les contributions sont les bienvenues ! Si vous souhaitez améliorer le projet, proposer de nouvelles fonctionnalités, corriger des bugs ou améliorer la documentation, n'hésitez pas à soumettre une **pull request**.
