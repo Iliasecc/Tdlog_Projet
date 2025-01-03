@@ -14,8 +14,8 @@ client = OpenAI(api_key= "***************")
 
 
 # Chemins vers les fichiers du modèle et du scaler
-model_path = "Tdlog/model1.pkl"
-scaler_path = "Tdlog/scaler1.pkl"
+model_path = "Tdlog_project/model1.pkl"
+scaler_path = "Tdlog_project/scaler1.pkl"
 data_file_path = "employees_data.json"
 grouped_data_file_path = "grouped_employees_data.json"
 # Charger le modèle
