@@ -3,14 +3,14 @@ from flask import Flask, render_template, request, flash, redirect, url_for, jso
 import numpy as np
 import pickle
 from collections import Counter
-import openai
+from openai import OpenAI
 
 
 app = Flask(__name__)
 app.secret_key = "secret-key"  # Nécessaire pour afficher les messages flash
 
 
-openai.api_key = "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"
+client = OpenAI(api_key= "***************")
 
 
 # Chemins vers les fichiers du modèle et du scaler
@@ -187,8 +187,9 @@ def chat():
             return jsonify({"error": "Message utilisateur manquant"}), 400
 
         # Appel à OpenAI pour générer une réponse
-        response = openai.ChatCompletion.create(
-            model="gpt-4", 
+   
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "Vous êtes Eden un psychologue virtuel prêt à aider les utilisateurs qui sont des employé qui ont des problèmes avec le travail ou la vie en générale, essaye de donner à chaque fois des recommendations pertinentes pour les aider."},
                 {"role": "user", "content": user_message}
@@ -197,7 +198,7 @@ def chat():
         )
 
         # Extraire la réponse générée par le modèle
-        ai_response = response['choices'][0]['message']['content']
+        ai_response = response.choices[0].message.content
 
         # Retourner la réponse au client
         return jsonify({"response": ai_response})
