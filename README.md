@@ -20,7 +20,7 @@ voir le fichier requirements.txt
  
  4.**Naviguer dans l'application en vous imaginant un Employé et puis un RH**
  ---------------
-**Plateforme de bien-être des employés** :
+##**Plateforme de bien-être des employés** :
 
 Bienvenue sur **Burnout Guard**, une plateforme réactive dédiée au bien-être des employés. Notre mission est d'aider les entreprises à prévenir le burnout et à améliorer la qualité de vie au travail. La plateforme utilise des données calculées chaque fin de mois pour déterminer le **burnout rate** des employés et propose des solutions personnalisées en fonction de ce taux. Et en plus elle propose des solutions préventives au burnout comme un psy virtuel et des activités pour le bien-être
 
